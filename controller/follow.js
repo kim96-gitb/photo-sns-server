@@ -53,6 +53,6 @@ exports.unfollow = async (req, res, next) => {
     [result] = await connection.query(query);
     res.status(200).json({ success: true, msg: result });
   } catch (e) {
-    res.status(400).json({ success: false, msg: e });
+    res.status(400).json({ success: false, error: e });
   }
 };
