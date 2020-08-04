@@ -77,10 +77,12 @@ exports.loginUser = async (req, res, next) => {
       res.status(200).json({ success: true, token: token });
     } catch (e) {
       res.status(400).json({ success: true, msg: e });
+      console.log(e);
       return;
     }
   } catch (e) {
     res.status(400).json({ success: true, msg: e });
+    console.log(e);
     return;
   }
 };
