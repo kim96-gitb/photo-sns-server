@@ -2,13 +2,13 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config/config.env" });
 
+const user = require("./routes/user");
+
 const app = express();
 
 app.use(express.json());
 
-app.get("/", (req, res, next) => {
-  res.json({ success: true });
-});
+app.use("/api/v1/user", user);
 
 const PORT = process.env.PORT || 5100;
 
