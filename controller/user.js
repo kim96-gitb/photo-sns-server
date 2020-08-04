@@ -57,7 +57,7 @@ exports.loginUser = async (req, res, next) => {
   let passwd = req.body.passwd;
 
   let savedPasswd;
-  let query = `select * from sns_user where email = ${email}`;
+  let query = `select * from sns_user where email = "${email}"`;
   try {
     [rows] = await connectoin.query(query);
     savedPasswd = rows[0].passwd;
