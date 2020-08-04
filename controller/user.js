@@ -23,6 +23,7 @@ exports.signupUser = async (req, res, next) => {
     res.status(500).json({ success: false, msg: "이메일 형식이 이상해요" });
     return;
   }
+  //
 
   let user_id;
   try {
