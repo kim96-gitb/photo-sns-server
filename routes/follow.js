@@ -4,6 +4,6 @@ const { follow } = require("../controller/follow");
 
 const router = express.Router();
 
-router.route("/").post(follow);
+router.route("/").post(auth, follow);
 
 module.exports = router;
