@@ -61,10 +61,10 @@ exports.loginUser = async (req, res, next) => {
   try {
     [rows] = await connectoin.query(query);
     savedPasswd = rows[0].passwd;
-    let user_id = row[0].id;
+    let user_id = rows[0].id;
 
     isMath = await bcrypt.compare(passwd, savedPasswd);
-    if (!isMath) {
+    if (isMath == false) {
       res.status.json({ success: false, msg: "비밀번호가 일치 하지않습니다" });
       return;
     }
@@ -76,13 +76,11 @@ exports.loginUser = async (req, res, next) => {
       [reslut] = await connectoin.query(query);
       res.status(200).json({ success: true, token: token });
     } catch (e) {
-      res.status(400).json({ success: true, msg: e });
-      console.log(e);
+      res.status(400).json({ success: false, msg: e });
       return;
     }
   } catch (e) {
-    res.status(400).json({ success: true, msg: e });
-    console.log(e);
+    res.status(400).json({ success: false, msg: e });
     return;
   }
 };
