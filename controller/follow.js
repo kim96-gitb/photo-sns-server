@@ -34,21 +34,6 @@ exports.unfollow = async (req, res, next) => {
   let user_id = req.user.user_id;
   let following_id = req.body.following_id;
 
-  let query = `select * from sns_follow where user_id = ${user_id} and following_id = ${following_id}`;
-  try {
-    [rows] = await connection.query(query);
-    let saved_following_id = rows[0].following_id;
-  } catch (e) {
-    if (saved_following_id != following_id) {
-      res.status(500).json({
-        success: false,
-        msg: "이미 삭제되거나 존재 하지않는 유저입니다",
-      });
-    } else {
-      res.status(400).json({ success: false, msg: e });
-    }
-  }
-
   query = `delete from sns_follow where user_id = ${user_id} and following_id = ${following_id}`;
   try {
     [result] = await connection.query(query);
