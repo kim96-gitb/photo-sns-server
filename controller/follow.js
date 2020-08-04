@@ -38,13 +38,13 @@ exports.unfollow = async (req, res, next) => {
   try {
     [rows] = await connection.query(query);
     let saved_following_id = rows[0].following_id;
+  } catch (e) {
     if (saved_following_id != following_id) {
       res.status(500).json({
         success: false,
         msg: "이미 삭제되거나 존재 하지않는 유저입니다",
       });
     }
-  } catch (e) {
     res.status(400).json({ success: false, msg: e });
   }
 
