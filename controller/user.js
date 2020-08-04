@@ -11,6 +11,9 @@ exports.signupUser = async (req, res, next) => {
   let email = req.body.email;
   let passwd = req.body.passwd;
 
+  const hashedPasswd = await bcrypt.hash(passwd, 4);
+  let query = `insert into sns_user(email , passwd) values("${email}","${hashedPasswd}")`;
+
   if (!email || !passwd) {
     res.status(500).json({ success: false, msg: "이메일 비밀번호 입력하세요" });
     return;
@@ -20,9 +23,6 @@ exports.signupUser = async (req, res, next) => {
     res.status(500).json({ success: false, msg: "이메일 형식이 이상해요" });
     return;
   }
-
-  const hashedPasswd = await bcrypt.hash(passwd, 4);
-  let query = `insert into sns_user(email , passwd) values("${email}","${hashedPasswd}")`;
 
   let user_id;
   try {
