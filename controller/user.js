@@ -89,12 +89,11 @@ exports.loginUser = async (req, res, next) => {
 // @request  token
 // @response success
 exports.logoutUser = async (req, res, next) => {
-  let token = req.user.token;
   let user_id = req.user.user_id;
   let query = `delete from sns_token where user_id = ${user_id}`;
   try {
     [reslut] = await connectoin.query(query);
-    res.status.json({ success: true, msg: reslut });
+    res.status(200).json({ success: true, msg: reslut });
   } catch (e) {
     res.status(400).json({ success: false, msg: e });
     return;
