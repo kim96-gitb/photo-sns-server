@@ -44,8 +44,9 @@ exports.unfollow = async (req, res, next) => {
         success: false,
         msg: "이미 삭제되거나 존재 하지않는 유저입니다",
       });
+    } else {
+      res.status(400).json({ success: false, msg: e });
     }
-    res.status(400).json({ success: false, msg: e });
   }
 
   query = `delete from sns_follow where user_id = ${user_id} and following_id = ${following_id}`;
