@@ -48,3 +48,39 @@ exports.signupUser = async (req, res, next) => {
     return;
   }
 };
+// @desc 로그인
+// @routes POST api/v1/user/login
+// @request email , passwd
+// @response success
+exports.loginUser = async (req, res, next) => {
+  let email = req.body.email;
+  let passwd = req.body.passwd;
+
+  let savedPasswd;
+  let query = `select * from sns_user where email = ${email}`;
+  try {
+    [rows] = await connectoin.query(query);
+    savedPasswd = rows[0].passwd;
+    let user_id = row[0].id;
+
+    isMath = await bcrypt.compare(passwd, savedPasswd);
+    if (!isMath) {
+      res.status.json({ success: false, msg: "비밀번호가 일치 하지않습니다" });
+      return;
+    }
+
+    let token = jwt.sign({ user_id: user_id }, process.env.ACCESS_TOKEN_SECRET);
+    query = `insert into sns_token(token , user_id)values("${token}",${user_id})`;
+
+    try {
+      [reslut] = await connectoin.query(query);
+      res.status(200).json({ success: true, token: token });
+    } catch (e) {
+      res.status(400).json({ success: true, msg: e });
+      return;
+    }
+  } catch (e) {
+    res.status(400).json({ success: true, msg: e });
+    return;
+  }
+};
