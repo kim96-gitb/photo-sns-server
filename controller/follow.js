@@ -13,7 +13,7 @@ exports.follow = async function (req, res, next) {
     return;
   }
 
-  let query = `insert into sns_follow (user_id,following_id) valuse (${user_id},${following_id})`;
+  let query = `insert into sns_follow (user_id,following_id) values (${user_id},${following_id})`;
   try {
     [result] = await connection.query(query);
     res.status(200).json({ success: true, msg: result });
