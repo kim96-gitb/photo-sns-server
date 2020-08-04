@@ -2,7 +2,6 @@ const connectoin = require("../my_connection");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { json } = require("express");
 
 // @desc 회원가입
 // @routes POST api/v1/user
@@ -14,6 +13,11 @@ exports.signupUser = async (req, res, next) => {
 
   const hashedPasswd = await bcrypt.hash(passwd, 4);
   let query = `insert into sns_user(email , passwd) values("${email}","${hashedPasswd}")`;
+
+  if (!email || !passwd) {
+    res.status(500).json({ success: false, msg: "이메일 비밀번호 입력하세요" });
+    return;
+  }
 
   if (!validator.isEmail(email)) {
     res.status(500).json({ success: false, msg: "이메일 형식이 이상해요" });
