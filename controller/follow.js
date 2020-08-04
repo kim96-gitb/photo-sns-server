@@ -15,6 +15,8 @@ exports.follow = async function (req, res, next) {
 
   let query = `insert into sns_follow (user_id,following_id) valuse (${user_id},${following_id})`;
   try {
+    [result] = await connection.query(query);
+    res.status(200).json({ success: true, msg: result });
   } catch (e) {
     if (e.errno == 1062) {
       res.status(500).json({ success: false, msg: "이미 팔로우를 하셨습니다" });
