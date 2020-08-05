@@ -11,6 +11,7 @@ const path = require("path");
 
 exports.photoPosting = async (req, res, next) => {
   let user_id = req.user.id;
+  let photo = req.files.photo;
   let posting = req.body.posting;
   if (!user_id || !req.files) {
     res.status(400).json({ message: "정보가 이상함" });
@@ -18,7 +19,6 @@ exports.photoPosting = async (req, res, next) => {
   }
   console.log(req.files);
 
-  const photo = req.files.photo;
   // 지금 받은 파일이. 이미지 파일인지 체크
   if (photo.mimetype.startsWith("image") == false) {
     res.status(400).json({ message: "이미지파일이 아닙니다" });
@@ -33,7 +33,7 @@ exports.photoPosting = async (req, res, next) => {
   // fall.jpg =>photo_3.jpg  ext==확장자명을 뜻한다
   // abc.png =>photo_#.png
   // path 의 parse는 이름과 확장자명을 파싱하는데 우리는 이름은 버리고 확장자명만 가져옴.
-  photo.name = `photo_${user_id}${path.parse(photo.name).ext}`;
+  photo.name = `photo_${user_id}_${Date.now()}${path.parse(photo.name).ext}`;
 
   // ./public/upload/photo_3.jpg 로 저장하겠다는 것
   let fileUploadPath = `${process.env.FILE_UPLOAD_PATH}/${photo.name}`;
