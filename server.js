@@ -4,6 +4,7 @@ dotenv.config({ path: "./config/config.env" });
 
 const user = require("./routes/user");
 const follow = require("./routes/follow");
+const posting = require("./routes/posting");
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 
 app.use("/api/v1/user", user);
 app.use("/api/v1/follow", follow);
+app.use("/api/v1/posting", posting);
 
 const PORT = process.env.PORT;
 
