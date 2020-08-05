@@ -13,7 +13,7 @@ exports.photoPosting = async (req, res, next) => {
   let user_id = req.user.id;
   let posting = req.body.posting;
   if (!user_id || !req.files) {
-    res.status(400).json({ message: "에러" });
+    res.status(400).json({ message: "정보가 이상함" });
     return;
   }
   console.log(req.files);
