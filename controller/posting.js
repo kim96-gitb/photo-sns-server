@@ -32,7 +32,7 @@ exports.uploadPhoto = async (req, res, next) => {
   });
 
   let query =
-    "insert into photo_post (user_id, photo_url, content) \
+    "insert into sns (user_id, photo_url, posting) \
                 values (?,?,?)";
   let data = [user_id, photo.name, posting];
 
