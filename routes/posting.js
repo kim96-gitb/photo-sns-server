@@ -1,16 +1,16 @@
 const express = require("express");
 const {
   myposting,
-  photoPosting,
   update_photo,
   delete_photo,
   followPosting,
+  uploadPhoto,
 } = require("../controller/posting");
 const auth = require("../middleware/auth");
 
 const router = express.Router();
 
-router.route("/").post(auth, photoPosting);
+router.route("/").post(auth, uploadPhoto);
 router.route("/me").get(auth, myposting);
 router.route("/update").put(auth, update_photo);
 router.route("/delete").delete(auth, delete_photo);
