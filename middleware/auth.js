@@ -2,7 +2,7 @@ const connection = require("../my_connection");
 const jwt = require("jsonwebtoken");
 
 const auth = async (req, res, next) => {
-  let token;
+  let token; //
   try {
     token = req.header("Authorization").replace("Bearer ", ""); // 베어러 제거
   } catch (e) {
