@@ -20,7 +20,7 @@ exports.uploadPhoto = async (req, res, next) => {
     return;
   }
 
-  photo.name = `photo_${user_id}_${Date.now()}${path.parse(photo.name).ext}`;
+  photo.name = `photo_${user_id}${path.parse(photo.name).ext}`;
 
   let fileUploadPath = `${process.env.FILE_UPLOAD_PATH}/${photo.name}`;
 
@@ -32,7 +32,7 @@ exports.uploadPhoto = async (req, res, next) => {
   });
 
   let query =
-    "insert into sns (user_id, photo_url, posting) \
+    "insert into sns (user_id, photo_url, ) \
                 values (?,?,?)";
   let data = [user_id, photo.name, posting];
 
