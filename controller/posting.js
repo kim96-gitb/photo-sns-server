@@ -125,13 +125,16 @@ exports.delete_photo = async (req, res, next) => {
 };
 // @desc  팔로우한 친구 게시물 확인하기
 // @route  GET /api/v1/posting/followposting
-// @request token , sns_id
+// @request token , sns_id , offset , limit
 // @response success
 exports.followPosting = async (req, res, next) => {
   let user_id = req.user.id;
+  let offset = req.query.offset;
+  let limit = req.query.limit;
+
   let query = `select * from sns as s join sns_follow as sf\ 
       on s.user_id = sf.user_id \
-      where sf.following_id =${user_id} `;
+      where sf.following_id =${user_id} limit ${offset},${limit} `;
 
   try {
     [rows] = await connection.query(query);
