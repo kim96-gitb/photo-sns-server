@@ -1,7 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config/config.env" });
-
+//사진
 const fileUpload = require("express-fileupload");
 const user = require("./routes/user");
 const follow = require("./routes/follow");
