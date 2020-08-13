@@ -5,7 +5,7 @@ const connection = require("../my_connection");
 // @request token , following_id
 // @response success
 exports.follow = async function (req, res, next) {
-  let user_id = req.user.user_id;
+  let user_id = req.user.id;
   let following_id = req.body.following_id;
 
   if (!following_id) {
@@ -27,7 +27,7 @@ exports.follow = async function (req, res, next) {
   query = `insert into sns_follow (user_id,following_id) values (${user_id},${following_id})`;
   try {
     [result] = await connection.query(query);
-    res.status(200).json({ success: true, msg: rows });
+    res.status(200).json({ success: true, msg: rows[0].email });
   } catch (e) {
     if (e.errno == 1062) {
       res.status(500).json({ success: false, msg: "이미 팔로우를 하셨습니다" });
@@ -42,7 +42,7 @@ exports.follow = async function (req, res, next) {
 // @request token , following_id
 // @response success
 exports.unfollow = async (req, res, next) => {
-  let user_id = req.user.user_id;
+  let user_id = req.user.id;
   let following_id = req.body.following_id;
 
   query = `delete from sns_follow where user_id = ${user_id} and following_id = ${following_id}`;

@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
 
   const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
   let user_id = decoded.user_id;
-  let query = `select * from sns_token where user_id = ${user_id} and token = "${token}"`;
+  let query = `select * from sns_user where id = ${user_id} `;
   try {
     [rows] = await connection.query(query);
     if (rows.length == 0) {

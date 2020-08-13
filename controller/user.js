@@ -89,7 +89,7 @@ exports.loginUser = async (req, res, next) => {
 // @request  token
 // @response success
 exports.logoutUser = async (req, res, next) => {
-  let user_id = req.user.user_id;
+  let user_id = req.user.id;
   let query = `delete from sns_token where user_id = ${user_id}`;
   try {
     [reslut] = await connectoin.query(query);
