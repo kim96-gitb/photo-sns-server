@@ -46,7 +46,9 @@ exports.photoPosting = async (req, res, next) => {
   let query = `insert into sns(user_id,photo_url,posting)values(${user_id},"${photo.name}","${posting}")`;
   try {
     [result] = await connection.query(query);
-    res.status(200).json({ message: "사진이 업로드 됐습니다.", user_id });
+    res
+      .status(200)
+      .json({ succecss: true, message: "사진이 업로드 됐습니다.", user_id });
   } catch (e) {
     res.status(500).json({ message: e });
   }
@@ -103,7 +105,9 @@ exports.update_photo = async (req, res, next) => {
   let query = `update sns set photo_url = "${photo.name}",posting = "${posting}" where user_id = ${user_id}`;
   try {
     [result] = await connection.query(query);
-    res.status(200).json({ message: "사진이 수정 되었습니다." });
+    res
+      .status(200)
+      .json({ succecss: true, message: "사진이 수정 되었습니다." });
   } catch (e) {
     res.status(500).json({ message: e });
   }
@@ -118,7 +122,9 @@ exports.delete_photo = async (req, res, next) => {
   let query = `delete from sns where user_id = ${user_id} and id =${sns_id} `;
   try {
     [result] = await connection.query(query);
-    res.status(200).json({ message: "사진이 삭제 되었습니다." });
+    res
+      .status(200)
+      .json({ succecss: true, message: "사진이 삭제 되었습니다." });
   } catch (e) {
     res.status(500).json({ message: "에러" });
   }
